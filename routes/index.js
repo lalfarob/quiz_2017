@@ -51,6 +51,7 @@ router.get('/author', function (req, res, next) {
 });
 
 
+
 // Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
 router.param('userId', userController.load);
@@ -153,6 +154,22 @@ router.get('/quizzes/random_nomore', quizController.randomnone);
 
 router.get('/help', function(req, res, next) {
     res.render('help');
+});
+
+router.get('/quizzes/random_play', quizController.randomplay);
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomcheck);
+router.get('/quizzes/random_nomore', quizController.randomnone);
+
+
+router.get('/help', function(req, res, next) {
+    res.render('help');
+});
+
+
+
+// Pagina de ayuda
+router.get('/help', function(req, res, next) {
+	res.render('help');
 });
 
 module.exports = router;

@@ -189,11 +189,15 @@ exports.randomplay = function (req, res, next) {
             var findOptions = {
                 where: whereopt,
                 offset: aleatorio,
+
                 limit: 1,
 		 include: [
                     {model: models.Tip, include: [{model: models.User, as : 'Author'}]},
                     {model: models.User, as: 'Author'}
 ]
+
+                limit: 1
+
             };
             return models.Quiz.findAll(findOptions);
         })
@@ -220,6 +224,7 @@ exports.randomplay = function (req, res, next) {
 // GEt /quizzes/randomcheck
 exports.randomcheck = function (req, res, next) {
 
+
 if(req.session.randomplay){
         if(!req.session.randomplay.resolved){
             var aux = []
@@ -232,6 +237,7 @@ if(req.session.randomplay){
         req.session.randomplay.resolved=aux;
 
     }
+
 
     var answer = req.query.answer || "";
     var result = answer.toLowerCase().trim() === req.quiz.answer.toLowerCase().trim();//Si el usuario acierta -> true
