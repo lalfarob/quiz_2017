@@ -14,6 +14,7 @@ router.get('/author', function(req, res, next) {
 });
 
 
+
 // Autoload de rutas que usen :quizId
 router.param('quizId', quizController.load);
 
@@ -41,4 +42,10 @@ router.get('/help', function(req, res, next) {
 });
 
 
+
+// Pagina de ayuda
+router.get('/help', function(req, res, next) {
+	res.render('help');
+});
+>>>>>>> 8ecc761
 module.exports = router;
