@@ -37,8 +37,12 @@ router.get(/(?!\/new$|\/edit$|\/play$|\/check$|\/session$|\/(\d+)$)\/[^\/]*$/, f
 //-----------------------------------------------------------
 
 /* GET home page. */
+
 router.get('/', function (req, res, next) {
     res.render('index');
+});
+router.get('/', function(req, res, next) {
+  res.render('index', {title: 'Quiz'});
 });
 
 // Pagina de creditos
@@ -129,7 +133,26 @@ router.put('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)/accept',
     tipController.accept);
 router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',
     sessionController.loginRequired,
+    tipController.adminOrAuthorRequired,
     tipController.destroy);
 
+
+router.get('/quizzes',                     quizController.index);
+router.get('/quizzes/random_play',	   quizController.randomplay);
+router.get('/quizzes/:quizId(\\d+)',       quizController.show);
+router.get('/quizzes/new',                 quizController.new);
+router.post('/quizzes',                    quizController.create);
+router.get('/quizzes/:quizId(\\d+)/edit',  quizController.edit);
+router.put('/quizzes/:quizId(\\d+)',       quizController.update);
+router.delete('/quizzes/:quizId(\\d+)',    quizController.destroy);
+
+router.get('/quizzes/:quizId(\\d+)/play',  quizController.play);
+router.get('/quizzes/:quizId(\\d+)/check', quizController.check);
+router.get('/quizzes/randomcheck/:quizId(\\d+)', quizController.randomcheck);
+router.get('/quizzes/random_nomore', quizController.randomnone);
+
+router.get('/help', function(req, res, next) {
+    res.render('help');
+});
 
 module.exports = router;
